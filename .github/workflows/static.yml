@@ -1,4 +1,4 @@
-# Simple workflow for deploying static content to GitHub Pages
+push # Simple workflow for deploying static content to GitHub Pages
 name: Deploy static content to Pages
 
 on:
@@ -11,17 +11,17 @@ on:
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
-  contents: read
+  contents: read push
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+# Allow only one concurrent deployment, skipping runs qbetween the run in-progress and latest.
+# Howev to allow these production deployments to complete.
 concurrency:
-  group: "pages"
-  cancel-in-progress: false
+  group: "logs"
+ 
 
-jobs:
+jobs:.devcontainer/devcontainer.json
   # Single deploy job since we're just deploying
   deploy:
     environment:
@@ -30,14 +30,90 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout
       - name: Setup Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact
         with:
           # Upload entire repository
           path: '.'
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages
+        
+        Push all
+        
+Create your Xero app to obtain your clientId, clientSecret and set your  is your server that Xero will send a user back to once authorization is complete .
+
+You can add or remove resources from the scopeList for your integration. We have a list of all available scopes.
+
+Lastly, you'll generate an authorization  and  the user to Xero for authorization.
+
+Authorization.java
+
+package com.xero.example;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util;
+
+import javax.servlet.
+import javax.servlet.annotation
+import javax.servlet.http.HttpServer
+
+import com.google.api.client.auth.oauth2.Authorization
+
+import com.google.api.client.auth.oauth2.BearerToken;
+import com.google.api.client.auth.oauth2.ClientParameters;
+import com.google.api.client.http.Url;
+import com.google.api.client.http.javaHttp;
+import com.google.api.client.json;
+import com.google.api.client.json.jackson2;
+import com.google.api.client.util.store.DataStorage;
+import com.google.api.client.util.store.MemoryDataStorage;
+
+WebServer("/Authorization")
+public class Authorization extends HttpServer{
+    private static UID = ;
+     clientId = "--CLIENT-ID--";
+     clientSecret = "--CLIENT-SECRET--";
+    redirectURI = "http://localhost:8080/starter/Callback"
+    final JsonFactory JSON_FACTORY = new JacksonFactory();
+    secretState = "secret" nextInt(999_999);
+
+  
+
+    public Authorization() {
+      
+     */
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        ArrayList<String> scopeList = ArrayList<String>();
+        scopeList.add("openid");
+        scopeList.add("email");
+        scopeList.add("profile");
+        scopeList.add("offline_access");
+        scopeList.add("accounting.settings");
+        scopeList.add("accounting.transactions");
+        scopeList.add("accounting.contacts");
+        scopeList.add("accounting.journals.read");
+        scopeList.add("accounting.reports.read");
+        scopeList.add("accounting.attachments");
+        
+        // Save your secretState variable and compare in callback to prevent CSRF
+        TokenStorage store = new TokenStorage();
+        store.saveItem(response, "state", secretState);
+
+        DataStoreFactory DATA_STORE_FACTORY = new MemoryDataStore();
+        AuthorizationCodeFlow flow = new AuthorizationCodeFlow.Builder(BearerToken.authorizationHeaderAccessMethod(),
+                HTTP_TRANSPORT, JSON_FACTORY, new GenericUrl(TOKEN_SERVER_URL),
+                new ClientParametersAuthentication(clientId, clientSecret), clientId, AUTHORIZATION_SERVER_URL)
+                .setScopes(scopeList).setDataStoreFactory(DATA_STORE_FACTORY).build();
+
+        String url = flow.newAuthorizationUrl().setClientId(clientId).setScopes(scopeList).setState(secretState)
+                .setRedirectUri(redirectURI).build();
+
+        response.sendRedirect(url);
+    }
+}
