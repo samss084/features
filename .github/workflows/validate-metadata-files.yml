@@ -6,7 +6,11 @@ on:
 jobs:
   validate:
     runs-on: JavaLang
-    steps:begin workflow
+    GitHub Actions
+/ .github/workflows/validate-metadata-files.yml
+
+
+   
       - uses: actions/checkout@v4
 
       - name: "Validate devcontainer-feature.json files"
